@@ -14,29 +14,31 @@ const CreateBooks = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSaveBook = () => {
-    const data = {
-      title,
-      author,
-      publishYear,
-      content,
-     
-    };
-    setLoading(true);
-    axios
-      .post('http://localhost:5555/books', data)
-      .then(() => {
-        setLoading(false);
-        enqueueSnackbar('Book Created successfully', { variant: 'success' });
-        navigate('/');
-      })
-      .catch((error) => {
-        setLoading(false);
-        // alert('An error happened. Please Chack console');
-        enqueueSnackbar('Error', { variant: 'error' });
-        console.log(error);
-      });
+const handleSaveBook = () => {
+  const data = {
+    title,
+    author,
+    publishYear,
+    content,
   };
+
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  setLoading(true);
+  axios
+    .post(`${API_URL}/books`, data)
+    .then(() => {
+      setLoading(false);
+      enqueueSnackbar('Book Created successfully', { variant: 'success' });
+      navigate('/');
+    })
+    .catch((error) => {
+      setLoading(false);
+      enqueueSnackbar('Error', { variant: 'error' });
+      console.log(error);
+    });
+};
+
 
   return (
     <div className='p-4 bg-slate-  '>

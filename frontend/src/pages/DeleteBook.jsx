@@ -11,22 +11,24 @@ const DeleteBook = () => {
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleDeleteBook = () => {
-    setLoading(true);
-    axios
-      .delete(`http://localhost:5555/books/${id}`)
-      .then(() => {
-        setLoading(false);
-        enqueueSnackbar('Book Deleted successfully', { variant: 'success' });
-        navigate('/');
-      })
-      .catch((error) => {
-        setLoading(false);
-        // alert('An error happened. Please Chack console');
-        enqueueSnackbar('Error', { variant: 'error' });
-        console.log(error);
-      });
-  };
+const handleDeleteBook = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  setLoading(true);
+  axios
+    .delete(`${API_URL}/books/${id}`)
+    .then(() => {
+      setLoading(false);
+      enqueueSnackbar('Book Deleted successfully', { variant: 'success' });
+      navigate('/');
+    })
+    .catch((error) => {
+      setLoading(false);
+      enqueueSnackbar('Error', { variant: 'error' });
+      console.log(error);
+    });
+};
+
   
   return (
     <div className='p-4'>
